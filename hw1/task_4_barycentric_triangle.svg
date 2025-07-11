@@ -1,0 +1,55 @@
+<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+    <!-- Triangle 1: P with barycentric coordinates (~0.33, 0.33, 0.33) -->
+    <g transform="translate(50, 50)">
+        <!-- Triangle with colored vertices -->
+        <polygon points="0,150 150,150 75,0" fill="none" stroke="black" stroke-width="2"/>
+        <!-- Vertices -->
+        <circle cx="0" cy="150" r="5" fill="red"/>
+        <circle cx="150" cy="150" r="5" fill="green"/>
+        <circle cx="75" cy="0" r="5" fill="blue"/>
+        <!-- Labels -->
+        <text x="-10" y="170" font-size="12" fill="black">A (1,0,0)</text>
+        <text x="160" y="170" font-size="12" fill="black">B (0,1,0)</text>
+        <text x="70" y="-10" font-size="12" fill="black">C (0,0,1)</text>
+        <!-- Point P (center, roughly equal weights) -->
+        <circle cx="75" cy="100" r="5" fill="rgb(85,85,85)"/>
+        <text x="85" y="105" font-size="12" fill="black">P (~0.33,0.33,0.33)</text>
+        <text x="0" y="190" font-size="12" fill="black">Equal weights: Grayish color</text>
+    </g>
+
+    <!-- Triangle 2: P closer to A (red, ~0.8, 0.1, 0.1) -->
+    <g transform="translate(250, 50)">
+        <polygon points="0,150 150,150 75,0" fill="none" stroke="black" stroke-width="2"/>
+        <circle cx="0" cy="150" r="5" fill="red"/>
+        <circle cx="150" cy="150" r="5" fill="green"/>
+        <circle cx="75" cy="0" r="5" fill="blue"/>
+        <text x="-10" y="170" font-size="12" fill="black">A (1,0,0)</text>
+        <text x="160" y="170" font-size="12" fill="black">B (0,1,0)</text>
+        <text x="70" y="-10" font-size="12" fill="black">C (0,0,1)</text>
+        <!-- Point P closer to A -->
+        <circle cx="30" cy="135" r="5" fill="rgb(204,26,26)"/>
+        <text x="40" y="140" font-size="12" fill="black">P (~0.8,0.1,0.1)</text>
+        <text x="0" y="190" font-size="12" fill="black">More A: Reddish color</text>
+    </g>
+
+    <!-- Triangle 3: P closer to B (green, ~0.1, 0.8, 0.1) -->
+    <g transform="translate(450, 50)">
+        <polygon points="0,150 150,150 75,0" fill="none" stroke="black" stroke-width="2"/>
+        <circle cx="0" cy="150" r="5" fill="red"/>
+        <circle cx="150" cy="150" r="5" fill="green"/>
+        <circle cx="75" cy="0" r="5" fill="blue"/>
+        <text x="-10" y="170" font-size="12" fill="black">A (1,0,0)</text>
+        <text x="160" y="170" font-size="12" fill="black">B (0,1,0)</text>
+        <text x="70" y="-10" font-size="12" fill="black">C (0,0,1)</text>
+        <!-- Point P closer to B -->
+        <circle cx="120" cy="135" r="5" fill="rgb(26,204,26)"/>
+        <text x="130" y="140" font-size="12" fill="black">P (~0.1,0.8,0.1)</text>
+        <text x="0" y="190" font-size="12" fill="black">More B: Greenish color</text>
+    </g>
+
+    <!-- Description -->
+    <text x="10" y="380" font-size="14" fill="black">
+        Barycentric coordinates interpolate P's color: Red (A), Green (B), Blue (C).
+        Weights sum to 1, blending vertex colors.
+    </text>
+</svg>
