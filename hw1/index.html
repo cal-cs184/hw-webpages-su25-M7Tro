@@ -3,6 +3,10 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 		<style>
+			img {
+				margin-top: 20px;
+			}
+
 			/*
 			Adding spacing between section headers
 			*/
@@ -16,6 +20,7 @@
 			ul {
 				list-style-type: disc;
 				margin-top: 20px;
+				margin-bottom: 20px;
 			}
 
 			ul ul {
@@ -64,12 +69,6 @@
 		<br>
 
 		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-
-		<figure>
-			<img src="images/image1.png" alt="Lion" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
-
 		<!--
 		We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
 		-->
@@ -110,9 +109,11 @@
 			</li>
 			<li style="text-align: center;">
 				Show a png screenshot of basic/test4.svg with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.
+			</li>
+			<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 				<img src="images/Task 1/task_1.png" width="400px"/>
 				<figcaption>Task 1 image. You can observe the jaggies when triangle edges are thin.</figcaption>
-			</li>
+			</div>
 			<!--
 				<li>
 					Extra credit: Explain any special optimizations you did beyond simple bounding box triangle rasterization, with a timing comparison table (we suggest using the c++ clock() function around the svg.draw() command in DrawRend::redraw() to compare millisecond timings with your various optimizations off and on).
@@ -211,10 +212,12 @@
 				Create an updated version of svg/transforms/robot.svg with cubeman doing something more interesting, like waving or running. Feel free to change his colors or proportions to suit your creativity. Save your svg file as my_robot.svg in your docs/ directory and show a png screenshot of your rendered drawing in your write-up. Explain what you were trying to do with cubeman in words.
 			</li>
 			<li>
-				<img src="images/Task 3/my_robot.png" width="400px"/>
-				<figcaption>
-					The new upcoming movie is the Superman by James Gun. It made me think that a flying superman pose would be cool. I rotated his hands so that he is flying (also got them closer to shoulders). Changed color of the legs so that they look like boots. Added the famous old comics pants with a yellow belt. Yellow triangle as the “S” (hope) logo.
-				</figcaption>
+				<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+					<img src="images/Task 3/my_robot.png" width="400px"/>
+					<figcaption>
+						The new upcoming movie is the Superman by James Gun. It made me think that a flying superman pose would be cool. I rotated his hands so that he is flying (also got them closer to shoulders). Changed color of the legs so that they look like boots. Added the famous old comics pants with a yellow belt. Yellow triangle as the “S” (hope) logo.
+					</figcaption>
+				</div>
 			</li>
 			<!--
 			<li>
@@ -235,13 +238,17 @@
 					<li>
 						Check out this triangle PNG, and notice how the color of the point is different each time. It is dependent on the barycentric weights. The closer a certain vertex is to the point the more effect it has. It can be used for smoother changes of colors:
 					</li>
+					<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
 						<img src="images/Task 4/task_4_triangle.png" width="400px"/>
+					</div>
 				</ul>
 			</li>
 			<li>
 				Show a png screenshot of svg/basic/test7.svg with default viewing parameters and sample rate 1. If you make any additional images with color gradients, include them.
 			</li>
-			<img src="images/Task 4/task_4_correct.png" width="400px"/>
+			<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+				<img src="images/Task 4/task_4_correct.png" width="400px"/>
+			</div>
 		</ul>
 
 		<h2 class="section">Task 5: "Pixel sampling" for texture mapping</h2>
@@ -428,7 +435,9 @@
 		<ul>
 			<li>
 				Save your best svg file as competition.svg in your docs/ directory, and show us a 800x800 png screenshot of it in your write-up!
-				<img src="images/Task 7/competition.png" width="400px"/>
+				<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+					<img src="images/Task 7/competition.png" width="400px"/>
+				</div>
 			</li>
 			<li>
 				Explain how you did it. If you wrote a script to generate procedural svg files, include it in your submission in the src/directory and briefly explain how it works.
