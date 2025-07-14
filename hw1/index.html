@@ -115,9 +115,84 @@
 				<figcaption>Task 1 image. You can observe the jaggies when triangle edges are thin.</figcaption>
 			</div>
 			<!--
-				<li>
-					Extra credit: Explain any special optimizations you did beyond simple bounding box triangle rasterization, with a timing comparison table (we suggest using the c++ clock() function around the svg.draw() command in DrawRend::redraw() to compare millisecond timings with your various optimizations off and on).
-				</li>
+			<li>
+				Extra credit: Explain any special optimizations you did beyond simple bounding box triangle rasterization, with a timing comparison table (we suggest using the c++ clock() function around the svg.draw() command in DrawRend::redraw() to compare millisecond timings with your various optimizations off and on).
+				<ul>
+					<li>
+						In my very first implementation, I did not think about efficiency and only worried about making the whole thing work. Here is my original code:
+					</li>
+					<li>
+						void RasterizerImp::rasterize_triangle(float x0, float y0,
+							float x1, float y1,
+							float x2, float y2,
+							Color color) {
+							// TODO: Task 1: Implement basic triangle rasterization here, no supersampling
+
+							int min_x = min((int)floor(x0), (int)floor(x1));
+							min_x = min(min_x, (int)floor(x2));
+							int max_x = max((int)ceil(x0), (int)ceil(x1));
+							max_x = max(max_x, (int)ceil(x2));
+							int min_y = min((int)floor(y0), (int)floor(y1));
+							min_y = min(min_y, (int)floor(y2));
+							int max_y = max((int)ceil(y0), (int)ceil(y1));
+							max_y = max(max_y, (int)ceil(y2));
+
+							//Checking if the bounding box is within frame buffer:
+							if (min_x < 0 || max_x >= width) return;
+							if (min_y < 0 || max_y >= height) return;
+
+							int sqrt_rate = sqrt(sample_rate);
+							double step = 1.0f / sqrt_rate;
+
+							//Moved the area calculation out of the loop and pre-computed 1/area
+							double area = ((x1 - x2) * (y0 - y2) - (y1 - y2) * (x0 - x2));
+
+							//traversing thr triangle's bounding box:
+							for (int y = min_y; y < max_y; ++y) {
+							for (int x = min_x; x < max_x; ++x) {
+
+								//Traversing through supersample grid:
+								for (int sy = 0; sy < sqrt_rate; ++sy) {
+								for (int sx = 0; sx < sqrt_rate; ++sx) {
+									double px = x + (sx + 0.5f) * step;
+									double py = y + (sy + 0.5f) * step;
+
+									// Barycentric coordinates test
+									// Compute vectors from vertices to sample point
+									double w0 = ((x1 - x2) * (py - y2) - (y1 - y2) * (px - x2));
+									double w1 = ((x2 - x0) * (py - y0) - (y2 - y0) * (px - x0));
+									double w2 = ((x0 - x1) * (py - y1) - (y0 - y1) * (px - x1));
+
+
+									// Normalize barycentric coordinates
+									w0 /= area;
+									w1 /= area;
+									w2 /= area;
+
+									// Check if point is inside or on the triangle (boundary inclusive)
+									if (w0 >= 0 && w1 >= 0 && w2 >= 0) {
+									size_t sample_idx = sy * sqrt_rate + sx; //????
+									fill_pixel(x, y, color, sample_idx); //???
+									}
+								}
+								}
+							}
+							}
+							// TODO: Task 2: Update to implement super-sampled rasterization
+						}
+					</li>
+					<li>
+						An obvious improvement was taking out the calculation of the triangle's area from the loop and precomputing the normalization coefficient. 
+					</li>
+					<li>
+						As suggested by the spec, I output the value of "clock()" divided by 1000. Originally, the time outputed after running "./draw ../svg/basic" did not fall
+						below 152 units.
+					</li>
+					<li>
+						
+					</li>
+				</ul>
+			</li>
 			-->
 			</ul>
 		
@@ -219,11 +294,42 @@
 					</figcaption>
 				</div>
 			</li>
+
 			<!--
 			<li>
 				Extra Credit (2 pts): Add an extra feature to the GUI. For example, you could make two unused keys to rotate the viewport. Save an example image to demonstrate your feature, and write about how you modified the SVG to NDC and NDC to screen-space matrix stack to implement it.
+				<ul>
+					<li>
+						First, I located the "DrawRend::keyboard_event" in drawrend.cpp that would allow me to add new keys for interaction
+					</li>
+					<li>
+						Then I studied the "DrawRend" class structure in "drawrend.h".  Private members include various UI states(show_zoom, sample_rate) and
+						the ndc_to_screen 3x3 matrix object.
+					</li>
+					<li>
+						I added a member "rotation_angle" to store the rotation in radians. It is initialized to zero inside 
+						"Drawrend::init()".
+					</li>
+					<li>
+						I increment and decrement "rotation_angle" by 0.1 with keys 'R' and 'T', which I added to the 
+						DrawRend::keyboard_event.
+					</li>
+					<li>
+						I updated "DrawRend::set_view" so that the "svg_to_ndc" matrix includes rotation aroudn the view center.
+					</li>
+					<li>
+						In the starter code, "set_view" creates a translation matrix. My update is to also initialize a rotation matrix 
+						and the combine it with rotation.
+					</li>
+					<li>
+						After adding those changes, I had to make the new code compatible with the starter code.
+					</li>
+					<li>
+						Reset "rotation_angle" in "view_init".
+					</li>
+				</ul>
 			</li>
-			-->
+		-->
 		</ul>
 
 		<h2 class="section">Task 4: Barycentric coordinates</h2>
@@ -471,6 +577,15 @@
 						positioning of the mountains, positioning of the trees.
 					</li>
 				</ul>
+			</li>
+			<li>
+				After the ED announcement about competition, I decided to do something more interesting/fun. So I made a "Star Wars" illustration:
+				<div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+					<img src="./star_wars.png" width="1000px"/>
+				</div>
+				The Python script with which this image was generated is "generate_saber.ipynb", available inside the "hw1" folder. Essentially, after 
+				checking the tags that were used in test images I focused on using "rect" and "polygon" to generate this illustration. Hard-coded the 
+				lightsaber. For-loop for the Death Star. Randomly placed stars using the Python's "random" module.
 			</li>
 		</ul>
 
