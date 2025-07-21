@@ -301,7 +301,7 @@
 						Sharp edges and corners are smoothed out. Angularity of the shape is not preserved well. Even a single application of loop subdivision turns cube into a shape that is not easily recognized as a former cube. It seems like an aliasing problem: after subdivision, the resulting shape looks like it could originate from many different objects.
 					</li>
 					<li>
-						I have tried to see the effect of splitting edges of a figure. Could it help solving the problem mentioned above? What would it translate into after subdivision? Overall, I found that for shapes meshes with a large number of faces/edges(beast, teapot, weird, maxplank, beatle), loop subdivision does not really change the quality of the model: I could still recognize the original shape quite well.
+						I have tried to see the effect of splitting edges of a figure. Could it help solving the problem mentioned above? What would it translate into after subdivision? Overall, I found that for shapes/meshes with a large number of faces/edges(beast, teapot, weird, maxplank, beatle), loop subdivision does not really change the quality of the model: I could still recognize the original shape quite well.
 					</li>
 					<li>
 						For smaller shapes in the given code like the cube or torus, loop subdivision indeed made the shape less recognizable until it converges to a smooth version with many faces. 
@@ -330,7 +330,8 @@
 						</table>
 					</div>
 					<li>
-						However, pre-splitting many faces through the entire front of the torus without changing position of any original vertex resulted in a converged shape that preserve some of its original folds. Thus, upsampling the original figure uniformly without changing the geometry of the shape can help avoid loss of angularity during loop subdivision.
+						However, pre-splitting many faces through the entire front of the torus without changing position of any original vertex resulted in a converged shape that preserve some of its original folds. Thus, upsampling the original figure uniformly without changing the geometry of the shape can help avoid loss of angularity during loop subdivision. Here, the 
+						key difference compared to what I did with the cube was trying to split faces in many places, and only then change the geometry.
 					</li>
 					<div style="display: flex; flex-direction: column; align-items: center;">
 						<table style="width: 100%; text-align: center; border-collapse: collapse;">
